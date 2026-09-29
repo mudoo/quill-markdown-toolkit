@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Standalone blockquote test</title>
+  </head>
+  <body>
+    <div id="editor"></div>
+    <script type="module">
+      import Quill from 'quill'
+      import Blockquote, { matchBlockquote } from 'quill-format-blockquote'
+      import 'quill/dist/quill.snow.css'
+      import 'quill-format-blockquote/style.css'
+
+      Quill.register(Blockquote, true)
+      window.quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [['bold', 'blockquote']],
+          clipboard: { matchers: [['blockquote', matchBlockquote]] },
+        },
+      })
+    </script>
+  </body>
+</html>

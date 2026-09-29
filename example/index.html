@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quill Markdown 示例</title>
+    <style>
+      body { max-width: 960px; margin: 40px auto; padding: 0 24px; font: 15px/1.6 system-ui, sans-serif; color: #243042; }
+      h1 { font-size: 24px; }
+      textarea { box-sizing: border-box; width: 100%; min-height: 160px; padding: 12px; font: 14px/1.5 monospace; }
+      button { margin: 12px 8px 12px 0; padding: 6px 16px; cursor: pointer; }
+      #editor { min-height: 240px; }
+      #status { min-height: 24px; }
+    </style>
+  </head>
+  <body>
+    <h1>Quill Markdown</h1>
+    <p>粘贴 Markdown，或在编辑器中输入标题、引用、代码围栏。工具栏支持导入、复制和导出。</p>
+    <label for="source">Markdown 源文</label>
+    <textarea id="source"># 项目计划
+
+> 第一阶段
+>
+>> 嵌套说明
+
+- [ ] 待办事项
+- [x] 已完成事项</textarea>
+    <div><button id="insert">插入源文</button><button id="read">读取 Markdown</button><button id="clear">清空</button></div>
+    <div id="editor"></div>
+    <p id="status" role="status"></p>
+    <label for="output">导出结果</label>
+    <textarea id="output" readonly></textarea>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

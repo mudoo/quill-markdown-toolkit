@@ -1,0 +1,28 @@
+.ql-toolbar .ql-picker.ql-markdown { width: 40px; }
+.ql-toolbar .ql-markdown .ql-picker-label { padding-left: 5px; }
+.ql-toolbar .ql-markdown .ql-picker-label::before {
+  content: 'MD';
+  color: currentColor;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ql-toolbar .ql-markdown .ql-picker-options {
+  right: 0;
+  width: 168px;
+  padding: 4px;
+  border-radius: 4px;
+}
+.ql-toolbar .ql-markdown .ql-picker-item {
+  padding: 7px 10px;
+  border-radius: 4px;
+  color: var(--ql-markdown-text, #303133);
+  font-size: 13px;
+  font-weight: 400;
+}
+.ql-toolbar .ql-markdown .ql-picker-item::before { content: attr(aria-label); }
+.ql-toolbar .ql-markdown .ql-picker-item:hover,
+.ql-toolbar .ql-markdown .ql-picker-item:focus-visible {
+  background: var(--ql-markdown-hover-background, #f5f7fa);
+  color: var(--ql-markdown-hover-color, #06c);
+}
+.ql-toolbar .ql-markdown .ql-picker-item:not([data-value]) { display: none; }

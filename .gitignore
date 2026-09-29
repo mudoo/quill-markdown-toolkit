@@ -1,0 +1,8 @@
+node_modules/
+dist/*
+!dist/index.umd.js
+coverage/
+playwright-report/
+test-results/
+.preview/
+*.tgz

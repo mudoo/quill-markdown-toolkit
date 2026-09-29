@@ -1,0 +1,84 @@
+{
+  "name": "quill-markdown-toolkit",
+  "version": "0.1.0",
+  "description": "Markdown conversion, paste, shortcuts and file actions for Quill 2",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./conversion": {
+      "import": {
+        "types": "./dist/conversion.d.ts",
+        "default": "./dist/conversion.js"
+      },
+      "require": {
+        "types": "./dist/conversion.d.cts",
+        "default": "./dist/conversion.cjs"
+      }
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "tsup && node scripts/copy-css.mjs && node scripts/build-umd.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:browser": "node scripts/test-browser.mjs",
+    "test:package": "node --test tests/package.test.mjs",
+    "predev": "npm run build",
+    "dev": "vite --host 127.0.0.1 --port 5197 --strictPort",
+    "verify": "npm run build && npm run typecheck && npm test && npm run test:package && npm run test:browser",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "quill": "^2.0.3"
+  },
+  "dependencies": {
+    "markdown-it": "^15.0.0",
+    "quill-format-blockquote": "^1.0.0",
+    "turndown": "^7.2.0",
+    "turndown-plugin-gfm": "^1.0.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.0.0",
+    "@types/turndown": "^5.0.6",
+    "esbuild": "^0.27.7",
+    "highlight.js": "^11.11.1",
+    "jsdom": "^26.1.0",
+    "quill": "^2.0.3",
+    "quill-table-better": "^1.2.3",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "quill",
+    "markdown",
+    "clipboard",
+    "typescript"
+  ]
+}
