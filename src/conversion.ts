@@ -217,6 +217,22 @@ function createTurndownService(options: ConversionOptions): TurndownService {
       return `${prefix}${normalizeTableCellContent(content)} |`
     }
   })
+  // Quill splits checked and unchecked runs into separate lists; keep their Markdown lines adjacent.
+  service.addRule('quillTaskList', {
+    filter: (node) => node.tagName === 'UL' && (
+      node.hasAttribute('data-checked')
+      || Array.from(node.children).some((item) => (
+        item.tagName === 'LI' && /^(checked|unchecked)$/.test(item.getAttribute('data-list') || '')
+      ))
+    ),
+    replacement: (content, node) => {
+      const parent = node.parentNode
+      if (parent?.nodeName === 'LI') {
+        return parent.lastElementChild === node ? `\n${content}` : `\n\n${content}\n\n`
+      }
+      return `\n${content.trimEnd()}\n`
+    }
+  })
   service.addRule('quillTaskListItem', {
     filter: (node) => node.tagName === 'LI' && (
       /^(checked|unchecked)$/.test(node.getAttribute('data-list') || '')
@@ -225,7 +241,7 @@ function createTurndownService(options: ConversionOptions): TurndownService {
     replacement: (content, node) => {
       const state = node.getAttribute('data-list')
       const checked = (state ? state === 'checked' : node.parentElement?.getAttribute('data-checked') === 'true') ? 'x' : ' '
-      const item = content.replace(/^\n+/, '').replace(/\n+$/, '').replace(/\n/g, '\n    ')
+      const item = content.trim().replace(/\n/g, '\n  ')
       return `- [${checked}] ${item}\n`
     }
   })

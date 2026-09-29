@@ -50,6 +50,19 @@ describe('conversion fidelity', () => {
     const markdown = htmlToMarkdown('<ul><li data-list="unchecked">todo</li><li data-list="checked">done</li></ul>')
     expect(markdown).toBe('- [ ] todo\n- [x] done')
   })
+  it('keeps adjacent task groups on consecutive lines', () => {
+    const quillHtml = '<ul><li data-list="unchecked">todo</li></ul><ul><li data-list="checked">done</li></ul><ul><li data-list="unchecked">later</li></ul>'
+    expect(htmlToMarkdown(quillHtml)).toBe('- [ ] todo\n- [x] done\n- [ ] later')
+
+    const importedHtml = markdownToHtml('- [ ] todo\n- [x] done\n- [ ] later')
+    expect(htmlToMarkdown(importedHtml)).toBe('- [ ] todo\n- [x] done\n- [ ] later')
+    expect(htmlToMarkdown('<ul><li data-list="unchecked">todo</li></ul><p>between</p><ul><li data-list="checked">done</li></ul>'))
+      .toBe('- [ ] todo\n\nbetween\n\n- [x] done')
+  })
+  it('uses compact indentation for nested task items', () => {
+    const html = '<ul><li data-list="unchecked">parent<ul><li data-list="checked">child</li></ul></li></ul><ul><li data-list="checked">done</li></ul>'
+    expect(htmlToMarkdown(html)).toBe('- [ ] parent\n  - [x] child\n- [x] done')
+  })
   it('recognizes task markers in loose lists with paragraph wrappers', () => {
     const html = markdownToHtml('- [ ] todo\n\n- [x] done')
     expect(html).toContain('data-checked="false"')

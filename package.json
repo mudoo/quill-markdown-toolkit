@@ -1,6 +1,6 @@
 {
   "name": "quill-markdown-toolkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Markdown conversion, paste, shortcuts and file actions for Quill 2",
   "license": "UNLICENSED",
   "type": "module",
